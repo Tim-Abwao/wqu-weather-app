@@ -43,6 +43,8 @@ Alternatively, you can deploy using [Docker](https://www.docker.com/).
 1. `docker build -t weather_app .`
 1. `docker run -d -p 5000:5000 --name flask_weather_app weather_app`
 
+![screenshot of app](screen.png)
+
 ## Deploying to Heroku
 
 Make sure your app is ready to be deployed to Heroku by running Flask locally. To deploy to Heroku:

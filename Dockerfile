@@ -1,12 +1,10 @@
-FROM python:3.8.6-slim
+FROM python:3.8-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt \
-    --default-timeout=1000  # a safeguard against slow connections
+    # wait 2 minutes before timing out in slow/unstable networks
+    --default-timeout=120
 COPY weather_app ./weather_app
 EXPOSE 5000
-CMD export FLASK_APP="weather_app" && \
-    export FLASK_ENV=development && \
-    export DEPLOY=local && \
-    flask run --host=0.0.0.0
+CMD gunicorn -w 4 -b 0.0.0.0:5000 weather_app:app
