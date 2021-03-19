@@ -1,1 +1,1 @@
-web: gunicorn -w 4 weather_app:app
+web: waitress-serve --listen "*:$PORT" weather_app:app
