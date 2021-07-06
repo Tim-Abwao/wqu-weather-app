@@ -146,7 +146,7 @@ def get_external_IP_address():
     -------
     An IPv4 or IPv6 address.
     """
-    return requests.get('https://api.ipify.org',
+    return requests.get('https://ident.me/',
                         headers={'User-Agent': 'wqu_weather_app'}).text
 
 
