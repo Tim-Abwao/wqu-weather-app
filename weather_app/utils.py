@@ -1,10 +1,9 @@
 from io import StringIO
-import folium
 import pandas as pd
 import plotly.express as px
 import requests
 import requests_cache
-import wikipedia
+
 
 FLUSH_PERIOD = 10 * 60  # 10 minutes in seconds
 requests_cache.install_cache(expire_after=FLUSH_PERIOD)
@@ -30,11 +29,9 @@ def greet(ip_address):
 
     weather_info = {
         'graphs': plot_forecast(temperature_data),
-        'map': draw_map(location['lat'], location['lon']),
         'headline': f"""It's {temp_C :.0f} &deg;C ({temp_F :.0f} &deg;F) in
                     {location['city']}, {location['country']}
                     right now.""",
-        'summary': get_wikipedia_info(location['city'], location['country']),
         'ip_address': ip_address
     }
     return weather_info
@@ -134,39 +131,6 @@ def plot_forecast(data):
         temp10D_graph, full_html=False,
         include_plotlyjs='https://cdn.plot.ly/plotly-basic-1.58.2.min.js')
     return temp24H_graph, temp10D_graph
-
-
-def get_wikipedia_info(*location):
-    """Get brief details about a location from Wikipedia.
-
-    Parameters
-    ----------
-    location: str
-        Location name(s) to search for.
-
-    Returns
-    -------
-    Summary text about the location.
-    """
-    # Search for articles about location(s), and select first result
-    wiki_query = wikipedia.search(f"{location}")[0]
-
-    return wikipedia.summary(wiki_query, sentences=5)
-
-
-def draw_map(lat, lon):
-    """Draw the map of a location given latitude and longitude.
-
-    Parameters
-    ----------
-    lat, lon: int or float
-        Latitude and longitude values, respectively.
-
-    Returns
-    -------
-    A string with HTML code for a map.
-    """
-    return folium.Map(location=(lat, lon), zoom_start=14)._repr_html_()
 
 
 def convert_to_fahr(temp_C):
