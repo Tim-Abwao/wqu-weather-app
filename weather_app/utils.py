@@ -213,7 +213,7 @@ def plot_forecast(temp_data):
     )
     # Rename axes labels and disable zoom
     fig2.update_xaxes(title_text="Day", fixedrange=True)
-    fig2.update_yaxes(title_text="Air temperature in deg C", fixedrange=True)
+    fig2.update_yaxes(title_text="Air temperature in °C", fixedrange=True)
 
     fig2.update_layout(paper_bgcolor="azure", plot_bgcolor="azure")
     fig2.update_traces(
