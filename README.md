@@ -2,79 +2,97 @@
 
 This project demonstrates how to use Python to create web applications. It is primarily meant for educational purposes, specifically created for the *WorldQuant University - Introduction to Data Science* Module.
 
-The skills and tools used are:
+The skills and tools primarily used are:
 
-* Python's `requests` package.
-* Python's `flask` web framework.
-* working with JSON.
-* modular programming.
+- Python's `requests` package.
+- Python's `flask` web framework.
+- Working with JSON.
+- Modular programming.
 
-When a client visits the application, it:
+The application:
 
-1. gets the client's IP address.
-1. uses the IP address to look up their location.
-1. uses their location data to greet them with the temperature of the city they are located in.
+1. Fetches a client's IP address.
+1. Uses the IP address to look up the client's public location.
+1. Provides a weather update for the city the client is in.
 
-## Prerequisites
+## Getting started
 
-All required Python packages can be found in the `requirements.txt` file. Additionally, the provided `Makefile` can be used to create a virtual environment by running `make venv`. You will also need a Heroku account, and to have installed the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
+Clone the repository to get the necessary files:
 
-## Running the app locally using Flask
+    git clone https://github.com/Tim-Abwao/wqu-weather-app.git
 
-You may want to run the app using Flask locally before deploying it to Heroku, especially if you have made any changes to the code. To run locally:
+Afterwards, create a virtual environment, and install the required packages. You can use the provided `Makefile` to create a virtual environment by running `make` or `make all`. You can also do this manually.
 
-1. clone the repository.
-1. in the repository, run `make deploy`.
-1. open the link provided in the command line.
+For *Linux/Mac*:
 
-If you are using Windows, you can:
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -U pip
+    pip install -r requirements.txt
 
-1. create and activate the virtual environment.
+For *Windows*:
 
-        py -3 -m venv venv
-        venv\Scripts\activate
+    py -3 -m venv venv
+    venv\Scripts\activate
+    pip install -U pip
+    pip install -r requirements.txt
 
-1. `set FLASK_APP=weather_app` in the command line.
-1. run `python -m flask run`.
-1. open the link in the command line.
+If you wish to deploy the app to Heroku, you will additionally need a Heroku account, and to have installed the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
 
-Alternatively, you can deploy using [Docker](https://www.docker.com/).
+## Running the app locally
 
-1. `docker build -t weather_app .`
-1. `docker run -d -p 5000:5000 --name flask_weather_app weather_app`
+To run the *Flask development server*, you can use the command `make develop`. You can also use the commands:
+
+    export FLASK_APP=weather_app
+    export FLASK_ENV=development
+    flask run
+
+For *Windows*:
+
+    set FLASK_APP=weather_app
+    set FLASK_ENV=development
+    flask run
+
+Then browse to <http://127.0.0.1:5000/>.
+
+Another alternative is [Docker](https://www.docker.com/):
+
+    docker build -t weather_app .
+    docker run -d -p 5000:5000 --name flask_weather_app weather_app
+
+The browse to <http://0.0.0.0:5000/>
 
 ![screenshot of app](screen.png)
 
 ## Deploying to Heroku
 
-Make sure your app is ready to be deployed to Heroku by running Flask locally. To deploy to Heroku:
+Make sure your app is ready to be deployed to Heroku by confirming that it successfully runs locally. Then use the commands:
 
-1. clone the repository (if you haven't yet).
-1. `heroku login` and enter your credentials.
-1. `heroku create` or `heroku create app-name` where app-name is a custom app name.
-1. `git push heroku master`.
-1. `heroku config:set DEPLOY=heroku`.
-1. `heroku open` or open the app online through your Heroku profile.
+    heroku login
+    heroku create your-apps-name-goes-here
+    git push heroku main
+    heroku config:set DEPLOY=heroku
+    heroku open
 
 ## Future work
 
 Since this is a short demonstration of what you can do using Python to create web applications, consider extensions to the project. Some ideas include:
 
-1. showing a plot of the forecast.
-1. using their location to display other location specific data.
+1. Showing a plot of the weather forecast.
+1. Using clients' location to display other location specific data.
 
 ## Contributing to this project
 
-Please see the contributing guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Please see the [contribution guidelines](CONTRIBUTING.md).
 
 ## Contributors
 
 Thanks to the following people who have contributed to this project:
 
-* [xofbd](https://github.com/xofbd)
-* [gammaG2](https://github.com/gammaG2)
-* [T. A.](https://github.com/Tim-Abwao)
+- [xofbd](https://github.com/xofbd)
+- [gammaG2](https://github.com/gammaG2)
+- [T. A.](https://github.com/Tim-Abwao)
 
 ## License
 
-This project is distributed under the GNU General Purpose License. Please see `LICENSE` for more information.
+This project is distributed under the GNU General Purpose License. Please see [LICENSE](LICENSE) for more information.
