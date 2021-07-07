@@ -7,6 +7,12 @@ all: requirements.txt
 	source venv/bin/activate && pip install -r requirements.txt
 	touch venv
 
+develop:
+	source venv/bin/activate && \
+	export FLASK_APP=weather_app && \
+	export FLASK_ENV=development && \
+	flask run
+
 deploy:
 	source venv/bin/activate && \
 	waitress-serve --listen 0.0.0.0:5000 weather_app:app
