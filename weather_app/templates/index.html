@@ -7,53 +7,79 @@
     <style>
         body {
             background-color: azure;
+            color: #111;
             margin: 2% 5% 10%;
         }
 
-        .text-content {
+        .intro {
             font-style: oblique;
         }
 
-        .graphs {
+        .weather-info {
             display: grid;
             grid-template-columns: 1fr 1fr;
-        }
-
-        .summary {
-            display: grid;
-            grid-template-columns: 35% 60%;
             gap: 5%;
         }
 
-        @media screen and (max-width: 1024px) {
-            body {
-                width: 70%;
-            }
+        .icons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
 
-            .graphs,
-            .summary {
-                display: block;
-            }
+        .weather-metrics {
+            font: oblique bold 1.3em 'Courier New', Courier, monospace;
+        }
+
+        .metric-value {
+            color: turquoise;
         }
 
         @media screen and (max-width: 768px) {
             body {
-                width: 90%;
+                margin: 10%;
+            }
+
+            .weather-info {
+                display: block;
+            }
+
+            .weather-metrics {
+                text-align: center;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="text-content">
+    <div class="intro">
         <h1>{{ weather_info.headline|safe }}</h1>
         <p>(according to your IP address {{weather_info['ip_address']}})</p>
     </div>
 
-    <div class="graphs">
+    <div class="weather-info">
+
+        <div class="icons">
+            {% for period, icon in weather_info["data"]["weather_icons"].items() %}
+            <div class="weather-icon">
+                <h2>{{ "Next " ~ period }}</h2>
+                <img src="/static/weather-icons/{{icon}}.svg">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="weather-metrics">
+            {% for metric, value in weather_info["data"]["current_weather"].items() %}
+            <p>
+                <span class="metric">{{metric ~ ": "}}</span>
+                <span class="metric-value">{{value}}</span><br>
+            </p>
+            {% endfor %}
+        </div>
+
         {% for graph in weather_info['graphs'] %}
         {{ graph.getvalue()|safe }}
         {% endfor %}
+
     </div>
 
 </body>
