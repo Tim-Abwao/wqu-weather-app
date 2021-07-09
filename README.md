@@ -62,7 +62,7 @@ Another alternative is [Docker](https://www.docker.com/):
 
 The browse to <http://0.0.0.0:5000/>
 
-![screenshot of app](screen.png)
+![screenshot of app](screen.jpg)
 
 ## Deploying to Heroku
 
